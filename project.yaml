@@ -10,6 +10,8 @@ spec:
   sourceRepos:
   - '*'
   destinations:
+  - namespace: previews
+    server: https://kubernetes.default.svc
   - namespace: "pr-*"
     server: https://kubernetes.default.svc
   - namespace: argocd

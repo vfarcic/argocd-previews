@@ -13,7 +13,7 @@ spec:
     path: helm
   destination:
     server: https://kubernetes.default.svc
-    namespace: previews
+#    namespace: previews
   syncPolicy:
     automated:
       selfHeal: true
