@@ -16,7 +16,7 @@ spec:
         image:
           tag: 2.6.2
         ingress:
-          host: pr-1-devops-toolkit.xip.io
+          host: pr-1-devops-toolkit.192.168.64.31.xip.io
       version: v3
   destination:
     namespace: pr-1-devops-toolkit
