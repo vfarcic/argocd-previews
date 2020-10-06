@@ -16,7 +16,7 @@ spec:
       values: |
         image:
           repository: vfarcic/devops-toolkit
-          tag: pr-7-c5a2aa0
+          tag: pr-7-31f5f17
         ingress:
           host: pr-devops-toolkit-7.devopstoolkitseries.com
       version: v3
