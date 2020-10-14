@@ -22,5 +22,8 @@ spec:
     namespace: "{{.APP_ID}}"
     server: https://kubernetes.default.svc
   syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
     syncOptions:
     - CreateNamespace=true
