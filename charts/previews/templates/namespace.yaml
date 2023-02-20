@@ -1,5 +1,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: previews
-
+  name: {{ .Chart.Name }}

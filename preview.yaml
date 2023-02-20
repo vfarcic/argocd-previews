@@ -5,25 +5,32 @@ metadata:
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: "{{.APP_ID}}"
 spec:
+  # The project the application belongs to
   project: previews
   source:
-    path: helm
-    repoURL: https://github.com/vfarcic/{{.REPO}}.git
+    # Can point to either a Helm chart repo or a git repo
+    repoURL: https://github.com/{{.REPO}}.git
+    # For Helm, this refers to the chart version
     targetRevision: HEAD
+    path: "{{.CHART_PATH}}"
     helm:
       values: |
+        ingress:
+          enabled: true
         image:
           tag: "{{.IMAGE_TAG}}"
         ingress:
           host: "{{.HOSTNAME}}"
-      version: v3
+      #version: v3
   destination:
     namespace: "{{.APP_ID}}"
     server: https://kubernetes.default.svc
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated:
       selfHeal: true
       prune: true
-    syncOptions:
-    - CreateNamespace=true

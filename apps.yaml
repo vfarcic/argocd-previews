@@ -8,9 +8,9 @@ metadata:
 spec:
   project: previews
   source:
-    repoURL: https://github.com/vfarcic/argocd-previews.git
+    repoURL: https://github.com/atrakic/argocd-previews.git
     targetRevision: HEAD
-    path: helm
+    path: charts/previews
   destination:
     server: https://kubernetes.default.svc
     namespace: previews

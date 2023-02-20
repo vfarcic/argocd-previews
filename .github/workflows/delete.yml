@@ -1,0 +1,37 @@
+name: Delete-PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      pullNumber:
+        description: ''
+        required: true
+
+jobs:
+  delete:
+    name: Delete preview environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Install brew tools
+        run: brew bundle
+
+      - name: Destroy preview env
+        run: ./scripts/delete.sh
+        env:
+           APP_ID: "${{ github.event.inputs.pullNumber }}" # ${{ github.event.number }}
+
+      - name: Push changes for destruction
+        uses: github-actions-x/commit@v2.9
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          push-branch: $${{ github.event.repository.default_branch }}
+          commit-message: 'Preview ${{ github.event.inputs.pullNumber }} destroyed'
+          rebase: 'true' # pull and rebase before commit
+          name: 'Destroyer'
+          email: noreply@users.noreply.github.com

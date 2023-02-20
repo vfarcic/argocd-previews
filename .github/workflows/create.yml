@@ -1,0 +1,49 @@
+name: Create-PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      pullNumber:
+        description: ''
+        required: true
+      imageTag:
+        description: ''
+        required: true
+      repoName:
+        description: ''
+        required: true
+      chartPath:
+        description: ''
+        required: true
+
+jobs:
+  create:
+    name: Create a preview environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Install tools
+        run: brew bundle
+      
+      - name: Create or update preview env
+        run: ./scripts/create.sh
+        env:
+          APP_ID: ${{ github.event.inputs.pullNumber }}     # ${{ github.event.number }}
+          IMAGE_TAG: ${{ github.event.inputs.imageTag }}    # "latest"
+          REPO: ${{ github.event.inputs.repoName }}         # "atrakic/go-static-site"
+          CHART_PATH: ${{ github.event.inputs.chartPath }}  # "charts/go-static-site"
+
+      - name: Push changes for previre env
+        uses: github-actions-x/commit@v2.9
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          push-branch: ${{ github.event.repository.default_branch }}
+          commit-message: 'Preview ${{ github.event.inputs.pullNumber }} created or updated'
+          rebase: 'true' # pull and rebase before commit
+          name: 'Creator'
+          email: noreply@users.noreply.github.com
