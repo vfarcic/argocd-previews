@@ -1,6 +1,6 @@
 # argocd-previews
 
-> This repo populates [helm chart](charts/preview) with Argo CD Application manifests.
+> This repo populates [helm chart](charts/previews) with Argo CD Application manifests.
 
 ## Triggering pipelines
 - [Create PR](https://github.com/atrakic/go-static-site/blob/main/.github/workflows/pr-create.yaml) 
