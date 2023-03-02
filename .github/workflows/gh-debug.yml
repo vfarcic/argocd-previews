@@ -1,0 +1,21 @@
+name: gh-debug
+
+on:
+  create:
+    branches-ignore:
+      - main
+  delete:
+    branches-ignore:
+      - main
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  gh-debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump github context
+        run: echo "$GITHUB_CONTEXT"
+        shell: bash
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
