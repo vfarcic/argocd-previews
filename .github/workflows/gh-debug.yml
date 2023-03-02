@@ -1,6 +1,7 @@
 name: gh-debug
 
 on:
+  pull_request:
   create:
     branches-ignore:
       - main
