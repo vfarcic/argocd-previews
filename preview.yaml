@@ -9,7 +9,7 @@ spec:
   project: previews
   source:
     path: helm
-    repoURL: https://github.com/vfarcic/{{.REPO}}.git
+    repoURL: https://github.com/yairaba/{{.REPO}}.git
     targetRevision: HEAD
     helm:
       values: |
