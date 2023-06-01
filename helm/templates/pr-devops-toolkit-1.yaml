@@ -1,0 +1,30 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  name: pr-devops-toolkit-1
+  namespace: argocd
+spec:
+  destination:
+    namespace: pr-devops-toolkit-1
+    server: https://kubernetes.default.svc
+  project: previews
+  source:
+    helm:
+      values: |
+        image:
+          tag: "2.6.2"
+        ingress:
+          host: "pr-devops-toolkit-1.192.168.40.200.nip.io"
+      version: v3
+    path: helm
+    repoURL: https://github.com/vfarcic/devops-toolkit.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
