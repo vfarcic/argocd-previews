@@ -59,7 +59,7 @@ cat preview.yaml
 
 # preview.yaml should be a file stored in the app repo
 export INGRESS_HOST=192.168.40.200
-export PR_ID=1
+export PR_ID=2
 
 export REPO=devops-toolkit
 
